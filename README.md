@@ -1,52 +1,46 @@
-<div align="center">
-<!-- Title: -->
-  <a href="https://github.com/TheAlgorithms/">
-    <img src="https://raw.githubusercontent.com/TheAlgorithms/website/1cd824df116b27029f17c2d1b42d81731f28a920/public/logo.svg" height="100">
-  </a>
-  <h1><a href="https://github.com/TheAlgorithms/">The Algorithms</a> - Python</h1>
+"""
+Binary Search Algorithm
 
-<!-- Labels: -->
-  <!-- First row: -->
-  <a href="https://gitpod.io/#https://github.com/TheAlgorithms/Python">
-    <img src="https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod&style=flat-square" height="20" alt="Gitpod Ready-to-Code">
-  </a>
-  <a href="https://github.com/TheAlgorithms/Python/blob/master/CONTRIBUTING.md">
-    <img src="https://img.shields.io/static/v1.svg?label=Contributions&message=Welcome&color=0059b3&style=flat-square" height="20" alt="Contributions Welcome">
-  </a>
-  <img src="https://img.shields.io/github/repo-size/TheAlgorithms/Python.svg?label=Repo%20size&style=flat-square" height="20">
-  <a href="https://the-algorithms.com/discord">
-    <img src="https://img.shields.io/discord/808045925556682782.svg?logo=discord&colorB=7289DA&style=flat-square" height="20" alt="Discord chat">
-  </a>
-  <a href="https://gitter.im/TheAlgorithms/community">
-    <img src="https://img.shields.io/badge/Chat-Gitter-ff69b4.svg?label=Chat&logo=gitter&style=flat-square" height="20" alt="Gitter chat">
-  </a>
+For explanation: https://en.wikipedia.org/wiki/Binary_search_algorithm
+"""
+from typing import List, Optional
 
-  <!-- Second row: -->
-  <br>
-  <a href="https://github.com/TheAlgorithms/Python/actions">
-    <img src="https://img.shields.io/github/actions/workflow/status/TheAlgorithms/Python/build.yml?branch=master&label=CI&logo=github&style=flat-square" height="20" alt="GitHub Workflow Status">
-  </a>
-  <a href="https://github.com/pre-commit/pre-commit">
-    <img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white&style=flat-square" height="20" alt="pre-commit">
-  </a>
-  <a href="https://docs.astral.sh/ruff/formatter/">
-    <img src="https://img.shields.io/static/v1?label=code%20style&message=ruff&color=black&style=flat-square" height="20" alt="code style: black">
-  </a>
 
-<!-- Short description: -->
-  <h3>All algorithms implemented in Python - for education 📚</h3>
-</div>
+def binary_search(sorted_collection: List[int], item: int) -> Optional[int]:
+    """
+    Pure implementation of binary search algorithm in Python.
 
-Implementations are for learning purposes only. They may be less efficient than the implementations in the Python standard library. Use them at your discretion.
+    :param sorted_collection: a sorted collection of items
+    :param item: item to search
+    :return: index of item in sorted_collection or None if not found
 
-## 🚀 Getting Started
+    >>> binary_search([0, 5, 7, 10, 15], 0)
+    0
+    >>> binary_search([0, 5, 7, 10, 15], 15)
+    4
+    >>> binary_search([0, 5, 7, 10, 15], 5)
+    1
+    >>> binary_search([0, 5, 7, 10, 15], 6) is None
+    True
+    >>> binary_search([], 1) is None
+    True
+    """
+    left = 0
+    right = len(sorted_collection) - 1
 
-📋 Read through our [Contribution Guidelines](CONTRIBUTING.md) before you contribute.
+    while left <= right:
+        midpoint = left + (right - left) // 2
+        current_item = sorted_collection[midpoint]
+        if current_item == item:
+            return midpoint
+        if item < current_item:
+            right = midpoint - 1
+        else:
+            left = midpoint + 1
+    return None
 
-## 🌐 Community Channels
 
-We are on [Discord](https://the-algorithms.com/discord) and [Gitter](https://gitter.im/TheAlgorithms/community)! Community channels are a great way for you to ask questions and get help. Please join us!
+if __name__ == "__main__":
+    import doctest
 
-## 📜 List of Algorithms
-
-See our [directory](DIRECTORY.md) for easier navigation and a better overview of the project.
+    doctest.testmod()
