@@ -1,19 +1,19 @@
 """
-Binary Search Algorithm in Python.
-
-For more information, see: https://en.wikipedia.org/wiki/Binary_search_algorithm
+A Python implementation of binary search algorithm.
 """
 
-from typing import List, Optional
+from typing import Sequence, TypeVar, Optional
+
+T = TypeVar("T")
 
 
-def binary_search(sorted_collection: List[int], item: int) -> Optional[int]:
+def binary_search(sorted_collection: Sequence[T], item: T) -> Optional[int]:
     """
-    Pure Python implementation of a binary search algorithm.
+    Pure implementation of binary search algorithm in Python.
 
-    :param sorted_collection: A sorted sequence of elements
-    :param item: Element to search for
-    :return: Index of the item if found, else None
+    :param sorted_collection: a sorted sequence of comparable elements
+    :param item: element to search for
+    :return: index of item in sorted_collection if found, else None
 
     Examples:
     >>> binary_search([0, 5, 7, 10, 15], 0)
@@ -22,19 +22,20 @@ def binary_search(sorted_collection: List[int], item: int) -> Optional[int]:
     4
     >>> binary_search([0, 5, 7, 10, 15], 5)
     1
-    >>> binary_search([0, 5, 7, 10, 15], 6)
-    >>> binary_search([], 1)
+    >>> binary_search([0, 5, 7, 10, 15], 6) is None
+    True
+    >>> binary_search([], 1) is None
+    True
     """
     left = 0
     right = len(sorted_collection) - 1
 
     while left <= right:
-        midpoint = (left + right) // 2
+        midpoint = left + (right - left) // 2
         current_item = sorted_collection[midpoint]
-
         if current_item == item:
             return midpoint
-        elif item < current_item:
+        if item < current_item:
             right = midpoint - 1
         else:
             left = midpoint + 1
